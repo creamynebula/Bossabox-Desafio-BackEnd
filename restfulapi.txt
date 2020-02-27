@@ -14,5 +14,7 @@ Another thing which will help you while building RESTful APIs is that query base
 
 URI = uniform resource identifier
 
-"Tells you the what the format of the request and response are"
+API = "Tells you the what the format of the request and response are"
+
 CRUD operations: "Creating, Reading, Updating and Deleting records"
+Quando vc chama a API você está fazendo uma dessas operações
