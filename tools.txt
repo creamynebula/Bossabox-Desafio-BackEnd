@@ -1,0 +1,5 @@
+IDE: VS Code
+Node.js + NPM
+MongoDB (no mLab Cloud ou no Docker?)
+Rest Client: Imsomnia
+Robo 3T pra olhar os dados do banco de dados
