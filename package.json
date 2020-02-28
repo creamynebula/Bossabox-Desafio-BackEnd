@@ -4,7 +4,8 @@
   "description": "Desafio Back-end do BossaBox",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js",
+    "test": "echo \"Erro: cadê o teste vacilão??\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/creamynebula/Bossabox-Desafio-BackEnd/issues"
   },
-  "homepage": "https://github.com/creamynebula/Bossabox-Desafio-BackEnd#readme"
+  "homepage": "https://github.com/creamynebula/Bossabox-Desafio-BackEnd#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
