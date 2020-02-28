@@ -1,0 +1,20 @@
+{
+  "name": "Bossabox-Desafio-BackEnd",
+  "version": "1.0.0",
+  "description": "Desafio Back-end do BossaBox",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/creamynebula/Bossabox-Desafio-BackEnd.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/creamynebula/Bossabox-Desafio-BackEnd/issues"
+  },
+  "homepage": "https://github.com/creamynebula/Bossabox-Desafio-BackEnd#readme"
+}
