@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "test": "echo \"Erro: cadê o teste vacilão??\" && exit 1"
+    "test": "echo \"Erro: cadê o teste vacilão??\" && exit 1",
+    "start-watch": "nodemon src/index.js"
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,8 @@
   "homepage": "https://github.com/creamynebula/Bossabox-Desafio-BackEnd#readme",
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
   }
 }
