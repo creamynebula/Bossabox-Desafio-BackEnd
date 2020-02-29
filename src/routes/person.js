@@ -19,7 +19,7 @@ router.get('/person', (req, res) => {  //(req, res) = 'request' e 'response'
 
 //subrota de 'person' que vai ser mapeada para a variável 'name'
 //propriedade 'params' no objeto 'req' (request)
-//localhost:3000/person/chihaya
+//ex: localhost:3000/person/chihaya
 router.get('/person/:name', (req, res) => {  //(req, res) = 'request' e 'response'
     res.send(`Você pediu a pessoa chamada ${req.params.name}`)   //envia uma mensagem dizendo o que o user pediu
 })
