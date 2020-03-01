@@ -1,6 +1,14 @@
-const express = require('express')
-const app = express() 
-
+const express = require('express')  //importando o módulo express
+const app = express()  //executando a função express() do módulo 'express' pra iniciar a app
+//daria pra criar outras apps diferentes, cada um com seus próprios requests e responses
+//o express tem funcoes tipo get, post, put etc que podemos chamar com app.get agora!
+//as funcoes levam 2 parâmetros:
+//o 1o é uma url aonde ela vai agir (ser chamada se a url for executada)
+//o 2o são request, response e outros parâmetros úteis na comunicação com o client
+//middleware function: executa qualquer código, faz mudanças em 'req' e 'res', termina o ciclo req-res, chama a próxima func middleware no stack
+//quando você chama app.use( () => {}) você está definindo a middleware function.
+//todas as middleware functions vao ser executadas (se houver next()) se nenhuma delas encerrar o ciclo req-res
+//opcionalmente pode fazer app.use('blabla', () => {}) que essa middleware soh vai handle requests pra rota 'blabla'
 
 let personRoute = require('./routes/person')  //local da rota, note que não precisa colocar .js
 let path = require('path')
@@ -11,7 +19,9 @@ app.use((req, res, next) => {
     next()  //chama a próxima função na pipeline, senão o client vai esperar até o timeout
 })
 app.use(personRoute)  //dizendo ao express pra usar personRoute, aka person.js
-app.use(express.static('public'))  //os static files vem de root/public
+
+//express.static é uma built-in (no express) middleware function pra servir arquivos estáticos
+app.use('/', express.static('public'))  //os static files vem de root/public
 
 // lidar com erro 404
 app.use((req, res, next) => {

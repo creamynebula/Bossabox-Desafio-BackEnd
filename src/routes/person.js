@@ -1,5 +1,5 @@
-let express = require('express')
-let router = express.Router()
+const express = require('express')  //importando o módulo express
+let router = express.Router()  //
 
 
 
