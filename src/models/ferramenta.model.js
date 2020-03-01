@@ -1,7 +1,5 @@
 //connect string: mongodb+srv://creamynebula:<password>@acertainmagicalcluster-lnor7.gcp.mongodb.net/test?retryWrites=true&w=majority
 let mongoose = require('mongoose')
-let express = require('express')
-let personRoute = require('./routes/person')
 
 const connectstring = 'mongodb+srv://creamynebula:TtFqeVFeC6mJG8T@acertainmagicalcluster-lnor7.gcp.mongodb.net/test?retryWrites=true&w=majority'
 
@@ -17,19 +15,24 @@ let ferramentaSchema = new mongoose.Schema({
     },
     title: {
         type: String,
-        require: true
+        require: true,
+        unique: false
     },
     link: {
         type: String,
-        require: true
+        require: true,
+        unique: true
     },
     description: {  //vou permitir descrição em branco
         type: String,
+        require: false,
+        unique: false
     },
-    tags: {
-        type: Array[String],
-        require: true
+    tags: {  //vou permitir ausência de tags
+        type: Array,
+        require: false,
+        unique: false
     } 
 })
 
-module.exports = mongoose.model('Ferramenta', ferramentaSchema)
+module.exports = mongoose.model('ferramenta', ferramentaSchema)
