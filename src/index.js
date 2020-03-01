@@ -22,8 +22,7 @@ app.use((req, res, next) => {
 // lidar com erro 500 (internal server error)
 // qdo dá erro 500 vamos pra página especial 500.html
 app.use((err, req, res, next) => { //essa função recebe um error object 'err' também
-    //console.error(err.stack) //isso imprime no console o caminho do erro, incluindo a msg que foi Throwed na ocasiao do erro
-
+    console.error(err.stack) //isso imprime no console o caminho do erro, incluindo a msg que foi Throwed na ocasiao do erro
     res.sendFile(path.join(__dirname, '../public/500.html')) //__dirname = cwd = root/src/
 })
 
