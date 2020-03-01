@@ -24,5 +24,8 @@ router.get('/person/:name', (req, res) => {  //(req, res) = 'request' e 'respons
     res.send(`Você pediu a pessoa chamada ${req.params.name}`)   //envia uma mensagem dizendo o que o user pediu
 })
 
+router.get('/error', (req, res) => {
+    throw new Error('Deu ruim ;_; código 683746') //daqui vai pra funcao que lida com erro 500 no index.js
+})
 
 module.exports = router  //agora pode importar o router no index.js
