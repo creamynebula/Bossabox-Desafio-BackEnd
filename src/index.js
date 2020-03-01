@@ -1,5 +1,5 @@
-let express = require('express')
-let app = express() 
+const express = require('express')
+const app = express() 
 
 
 let personRoute = require('./routes/person')  //local da rota, note que não precisa colocar .js
