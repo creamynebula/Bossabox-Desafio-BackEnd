@@ -13,14 +13,15 @@ opcionalmente pode fazer app.use('blabla', () => {}) que essa middleware soh vai
 */
 
 let path = require('path')
-let ferramentaRoute = require('./routes/ferramenta')
 let bodyParser = require('body-parser')
+let ferramentaRoute = require('./routes/ferramenta')
+
 
 //pega qualquer incoming json string e cria um atributo 'body', então agora podemos usar req.body
 app.use(bodyParser.json())
 
 app.use((req, res, next) => {
-    console.log(`${new Date().toString()} => Url usada: ${req.originalUrl} Corpo do req: ${req.body}`)
+    console.log(`${new Date().toString()} => Url usada: ${req.originalUrl}, Corpo do req: ${req.body}`)
 
     next()  //chama a próxima função na pipeline, senão o client vai esperar até o timeout
 })

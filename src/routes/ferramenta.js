@@ -1,4 +1,4 @@
-let ferramentaModel = require('../models/ferramenta.model')
+let FerramentaModel = require('../models/ferramenta.model')
 let express = require('express')
 let router = express.Router()
 
@@ -11,7 +11,7 @@ router.get('/ferramenta', (req, res) => {  //(req, res) = 'request' e 'response'
         res.send(`Você pediu a ferramenta chamada ${req.query.name}`)
     }
     else {
-        res.send('Você pediu uma pessoa.')
+        res.send('Você pediu uma ferramenta.')
     }
     
 })
@@ -29,30 +29,34 @@ router.get('/error', (req, res) => {
 
 //criar uma nova ferramenta via POST pra localhost:3000/ferramenta
 router.post('/ferramenta', (req, res) => {
-    if(!req.body) {
+    if(!req.body) { //req.body existe graças ao body-parser
         //retorna status 400 (bad request) e manda uma msg
-        return res.status(400).send('Sem corpo no request T_T')
+        return res.status(400).send('Sem corpo no request T_T erro 66256')
     }
+
+    //if(!req.body.title) {} só pra mostrar que daria pra lidar com a ausência de qualquer field
 
     /*
     exemplo de ferramenta, é isso que vai no req.body
     let tool1 = {
-        id: 7,
-        title: 'martelo virtual',
-        link: 'martelovirtual.com',
-        description: 'Um martelo... virtual.',
-        tags: ['madeira','','']
-    }
+	"id": 2,
+	"title": "Martelo de Ouro",
+	"link": "goldenhammer.io",
+	"description": "Um martelo gigante de ouro!",
+	"tags": [
+		"7m de comprimento",
+		"puro ouro"
+	]}
     */
 
     //se tem body, vamos criar uma ferramenta e add no DB
-    let model = new ferramentaModel(req.body)
+    let model = new FerramentaModel(req.body)
     model.save()  //isso vai mandar pro DB (mongoose -> mongodriver -> DB)
         .then(doc => {  //depois que salvamos: com o doc que foi saved (doc é um array de documents)
             if(!doc || doc.length === 0) { //se não tem doc
                 return res.status(500).send(doc)
             }
-            //se tem doc: 201 = resource was created
+            //se tem doc -> status 201 = resource was created
             res.status(201)
         })
         .catch(err => {  //lidar com erros
