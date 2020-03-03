@@ -16,6 +16,8 @@ router.get('/ferramenta', (req, res) => {  //(req, res) = 'request' e 'response'
     
 })
 
+
+
 //subrota de 'ferramenta' que vai ser mapeada para a variável 'name'
 //propriedade 'params' no objeto 'req' (request)
 //ex: localhost:3000/ferramenta/chihaya
@@ -35,6 +37,8 @@ router.post('/ferramenta', (req, res) => {
     }
 
     //if(!req.body.title) {} só pra mostrar que daria pra lidar com a ausência de qualquer field
+    //lembrando que o Model já tá lidando com algumas validações pra gente (com type, required etc)
+    //se alguma delas der ruim, vai pro .catch statement
 
     /*
     exemplo de ferramenta, é isso que vai no req.body
@@ -51,10 +55,10 @@ router.post('/ferramenta', (req, res) => {
 
     //se tem body, vamos criar uma ferramenta e add no DB
     let model = new FerramentaModel(req.body)
-    model.save()  //isso vai mandar pro DB (mongoose -> mongodriver -> DB)
+    return model.save()  //isso vai mandar pro DB (mongoose -> mongodriver -> DB)
         .then(doc => {  //depois que salvamos: com o doc que foi saved (doc é um array de documents)
             if(!doc || doc.length === 0) { //se não tem doc
-                return res.status(500).send(doc)
+                res.status(500).send(doc)
             }
             //se tem doc -> status 201 = resource was created
             res.status(201)
