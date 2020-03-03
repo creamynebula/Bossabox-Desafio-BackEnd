@@ -1,4 +1,4 @@
-let mongoose = require('mongoose')
+let mongoose = require('mongoose');
 
 const connectstring = 'mongodb+srv://creamynebula:TtFqeVFeC6mJG8T@acertainmagicalcluster-lnor7.gcp.mongodb.net/test?retryWrites=true&w=majority'
 //conectar ao DB
@@ -7,9 +7,9 @@ mongoose.connect(connectstring, {
     useUnifiedTopology: true, //UnifiedTopology e CreateIndex é pq haviam warnings no console sugerindo usar
     useCreateIndex: true
 }).
-    catch(error => console.log('não conectou ao DB'))
+    catch(error => console.log('não conectou ao DB'));
 
-let FerramentaSchema = new mongoose.Schema({
+let ferramentaSchema = new mongoose.Schema({
     id: {
         type: Number,
         required: true,
@@ -35,7 +35,14 @@ let FerramentaSchema = new mongoose.Schema({
         required: false,
         unique: false
     }
-})
+});
 
+ferramentaSchema.methods.tamanhoDescricao = () => {
+    return this.description.length;
+}; //só pra testar declarar um método, esse retorna o tamanho da descrição da ferramenta
 
-module.exports = mongoose.model('Ferramenta', FerramentaSchema)
+ferramentaSchema.methods.numTags = () => {
+    return this.tags.length;
+}; //retorna o número de tags da ferramenta
+
+module.exports = mongoose.model('Ferramenta', ferramentaSchema);
