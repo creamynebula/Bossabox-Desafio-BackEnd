@@ -30,7 +30,7 @@ router.get('/error', (req, res) => {
     throw new Error('Deu ruim ;_; código 683746') //daqui vai pra funcao que lida com erro 500 no index.js
 });
 
-//criar uma nova ferramenta via POST pra localhost:3000/ferramenta
+//criar uma nova ferramenta via POST, envie o request para localhost:3000/ferramenta
 router.post('/ferramenta', async (req, res) => {
     if (!req.body) {
       return res.status(400).send('Sem corpo no request T_T erro 66256');
@@ -38,7 +38,9 @@ router.post('/ferramenta', async (req, res) => {
   
     try {
       const model = new FerramentaModel(req.body);
-      const doc = await model.save();
+      const doc = await model.save( (err, model) => {
+          if (err) throw new Error(`temos algum problema pra salvar a ferramenta ${model} no DB`)
+      }); //modelo salvo (ou erro handled)
       if (doc || doc.length) {
         return res.status(201);
       }
@@ -47,5 +49,6 @@ router.post('/ferramenta', async (req, res) => {
       res.status(500).json(error);
     }
   });
+
 
 module.exports = router;
