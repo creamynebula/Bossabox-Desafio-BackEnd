@@ -6,16 +6,17 @@ let router = express.Router()
 // QueryString => Query propriedade no objeto 'req' (request)
 //ex: localhost:3000/ferramenta?name=chihaya&age=16
 //as query são key=value, o exemplo tem 2 queries
+/*
 router.get('/ferramenta', (req, res) => {  //(req, res) = 'request' e 'response'
-    if (req.query.name) {  //se a query tem um nome
-        res.send(`Você pediu a ferramenta chamada ${req.query.name}`)
+    if (req.query.tag) {  //se a query tem uma tag
+        FerramentaModel.find
     }
     else {
         res.send('Você pediu uma ferramenta.')
     }
     
 })
-
+*/
 
 
 //subrota de 'ferramenta' que vai ser mapeada para a variável 'name'
