@@ -3,7 +3,9 @@ let mongoose = require('mongoose')
 const connectstring = 'mongodb+srv://creamynebula:TtFqeVFeC6mJG8T@acertainmagicalcluster-lnor7.gcp.mongodb.net/test?retryWrites=true&w=majority'
 //conectar ao DB
 mongoose.connect(connectstring, {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true, //UnifiedTopology e CreateIndex é pq haviam warnings no console sugerindo usar
+    useCreateIndex: true
 }).
     catch(error => console.log('não conectou ao DB'))
 
@@ -34,7 +36,6 @@ let FerramentaSchema = new mongoose.Schema({
         unique: false
     }
 })
-
 
 
 module.exports = mongoose.model('Ferramenta', FerramentaSchema)
