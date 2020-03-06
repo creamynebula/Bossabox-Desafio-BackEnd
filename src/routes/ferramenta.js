@@ -26,12 +26,19 @@ router.post('/ferramenta', async (req, res) => {
 //ex: localhost:3000/ferramenta?name=chihaya&age=16
 //as query são key=value, o exemplo tem 2 queries
 
+//retornar (todos?) os docs com uma certa tag
 router.get('/ferramenta', (req, res) => {  //(req, res) = 'request' e 'response'
 
-    const model = new FerramentaModel();
+    //const model = new FerramentaModel();
 
     if (req.query.tag) {  //se a query tem uma tag
-        result = model.sameTag();
+        FerramentaModel.findOne({tags: req.query.tag})
+        .then(doc => {
+            res.json(doc)
+        })
+        .catch(err => {
+            res.status(500).send('Algo de errado, erro 004')
+        })
         //model.findOne({'tags': `${req.query.tag}`}, 'tags', (err, result) => { //esse callback recebe o resultado da busca pela tag
             if (err) {
                 res.status(404).send(`Não achamos a tag ${req.query.tag}`);

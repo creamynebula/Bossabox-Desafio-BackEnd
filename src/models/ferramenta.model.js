@@ -10,11 +10,7 @@ mongoose.connect(connectstring, {
     catch(error => console.log('não conectou ao DB'));
 
 let ferramentaSchema = new mongoose.Schema({
-    id: {
-        type: Number,
-        required: true,
-        unique: true
-    },
+    //não precisa de id porque o mongoose vai gerar _id automaticamente
     title: {
         type: String,
         required: true,
@@ -47,6 +43,6 @@ ferramentaSchema.methods.numberOftags = () => {
 
 ferramentaSchema.methods.sameTag = (input) => {
     return this.model('Ferramenta').find({tags: this.tags}, input);
-}
+} //função que retorna todas as ferramentas com a msm tag do input, ainda a ser testada
 
 module.exports = mongoose.model('Ferramenta', ferramentaSchema);
