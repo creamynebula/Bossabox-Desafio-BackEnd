@@ -37,12 +37,16 @@ let ferramentaSchema = new mongoose.Schema({
     }
 });
 
-ferramentaSchema.methods.tamanhoDescricao = () => {
-    return this.description.length;
-}; //só pra testar declarar um método, esse retorna o tamanho da descrição da ferramenta
+ferramentaSchema.methods.descriptionSize = () => {
+    return this.description ? this.description.length : 0;
+}; //só pra testar declarar um método, esse retorna o tamanho da descrição da ferramenta (ou 0)
 
-ferramentaSchema.methods.numTags = () => {
-    return this.tags.length;
+ferramentaSchema.methods.numberOftags = () => {
+    return this.tags ? this.tags.length : 0;
 }; //retorna o número de tags da ferramenta
+
+ferramentaSchema.methods.sameTag = (input) => {
+    return this.model('Ferramenta').find({tags: this.tags}, input);
+}
 
 module.exports = mongoose.model('Ferramenta', ferramentaSchema);

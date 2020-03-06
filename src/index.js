@@ -2,7 +2,7 @@ const express = require('express')  //importando o módulo express
 const app = express()  //executando a função express() do módulo 'express' pra iniciar a app
 
 /*daria pra criar outras apps diferentes, cada um com seus próprios requests e responses
-o express tem funcoes tipo get, post, put etc que podemos chamar com app.get agora!
+o express tem funcoes tipo get, post, put etc que podemos chamar com app.get
 as funcoes levam 2 parâmetros:
 o 1o é uma url aonde ela vai agir (ser chamada se a url for executada)
 o 2o são request, response e outros parâmetros úteis na comunicação com o client
@@ -20,27 +20,29 @@ let ferramentaRoute = require('./routes/ferramenta')
 //pega qualquer incoming json string e cria um atributo 'body', então agora podemos usar req.body
 app.use(bodyParser.json())
 
+/*
 app.use((req, res, next) => {
     console.log(`${new Date().toString()} => Url usada: ${req.originalUrl}, Corpo do req: ${req.body}`)
 
     next()  //chama a próxima função na pipeline, senão o client vai esperar até o timeout
 })
+*/
 
 app.use(ferramentaRoute)  //dizendo ao express pra usar ferramentaRoute, aka ferramenta.js
 
 //express.static é uma built-in (no express) middleware function pra servir arquivos estáticos
 app.use('/', express.static('public'))  //os static files vem de root/public
 
-// lidar com erro 404
+//lidar com erro 404
 app.use((req, res, next) => {
     res.status(404).send('Aonde você está tentando ir?')
 
 })
 
-// lidar com erro 500 (internal server error)
-// qdo dá erro 500 vamos pra página especial 500.html
+//lidar com erro 500 (internal server error)
+//qdo dá erro 500 vamos pra página especial 500.html
 app.use((err, req, res, next) => { //essa função recebe um error object 'err' também
-    console.error(err.stack) //isso imprime no console o caminho do erro, incluindo a msg que foi Throwed na ocasiao do erro
+    console.error(err.stack) //isso imprime no console o caminho do erro, incluindo a msg que foi Thrown na ocasiao do erro
     res.sendFile(path.join(__dirname, '../public/500.html')) //__dirname = cwd = root/src/
 })
 
