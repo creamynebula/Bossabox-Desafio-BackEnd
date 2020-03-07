@@ -32,24 +32,33 @@ router.get('/ferramenta', (req, res) => {  //(req, res) = 'request' e 'response'
     //const model = new FerramentaModel();
 
     if (req.query.tag) {  //se a query tem uma tag
-        FerramentaModel.findOne({tags: req.query.tag})
-        .then(doc => {
-            res.json(doc)
-        })
-        .catch(err => {
-            res.status(500).send('Algo de errado, erro 004')
-        })
-        //model.findOne({'tags': `${req.query.tag}`}, 'tags', (err, result) => { //esse callback recebe o resultado da busca pela tag
-            if (err) {
-                res.status(404).send(`Não achamos a tag ${req.query.tag}`);
-            }
-            else {
-                res.status(200).send(`${result.tag}`); //200 = OK
-            }
-        
+        FerramentaModel.findOne({ tags: req.query.tag })
+            .then(doc => {
+                res.json(doc)
+            })
+            .catch(err => {
+                res.status(500).send(`Algo de errado, erro 004. ${err}`)
+            })
+    }
+});
+
+router.delete('/ferramenta/:id', (req, res) => {  //(req, res) = 'request' e 'response'
+
+    //const model = new FerramentaModel();
+
+    if (req.params.id) {  //se a query tem uma tag
+        FerramentaModel.findOneAndRemove({ id: req.params.id })
+            .then(doc => {
+                res.json(doc)
+            })
+            .catch(err => {
+                res.status(500).send('Algo de errado, erro 005')
+            })
+        if (err) {
+            res.status(404).send(`Deu ruim. Erro 006`);
         }
-    });
-    
+    }
+});
 
 /*
 //subrota de 'ferramenta' que vai ser mapeada para a variável 'name'
