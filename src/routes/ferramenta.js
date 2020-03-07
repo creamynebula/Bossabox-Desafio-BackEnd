@@ -32,7 +32,7 @@ router.get('/ferramenta', (req, res) => {  //(req, res) = 'request' e 'response'
     //const model = new FerramentaModel();
 
     if (req.query.tag) {  //se a query tem uma tag
-        FerramentaModel.findOne({ tags: req.query.tag })
+        FerramentaModel.find({ tags: req.query.tag })
             .then(doc => {
                 res.json(doc)
             })
