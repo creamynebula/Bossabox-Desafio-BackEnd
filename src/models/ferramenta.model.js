@@ -10,25 +10,25 @@ mongoose.connect(connectstring, {
     catch(error => console.log('não conectou ao DB'));
 
 let ferramentaSchema = new mongoose.Schema({
-    //não precisa de id porque o mongoose vai gerar _id automaticamente
+    _id: String,
     title: {
-        type: String,
-        required: true,
-        unique: false
-    },
-    link: {
         type: String,
         required: true,
         unique: true
     },
-    description: {  //vou permitir descrição em branco
+    link: {
         type: String,
-        required: false,
+        required: true,
+        unique: false  //não precisa ser unique porque podem ter duas ferramentas hosted no msm endereço
+    },
+    description: {
+        type: String,
+        required: false,  //vou permitir descrição em branco
         unique: false
     },
-    tags: {  //vou permitir ausência de tags
+    tags: {
         type: Array,
-        required: false,
+        required: false,  //vou permitir ausência de tags
         unique: false
     }
 });

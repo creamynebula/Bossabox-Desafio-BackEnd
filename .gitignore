@@ -1,6 +1,9 @@
 #personal files
 *.personal
 
+
+# IDE files
+*.vscode
 # Logs
 logs
 *.log

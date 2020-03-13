@@ -1,68 +1,191 @@
 FORMAT: 1A
-HOST: http://VUTTR.apiblueprint.org/
 
 # VUTTR
 
 API para acesso à VUTTR (Very Useful Tools to Remember). A aplicação é um repositório para gerenciar ferramentas com seus respectivos nomes, links, descrições e tags.
 
-# VUTTR API Root [/]
+## Ferramentas
 
-This resource does not have any attributes. Instead it offers the initial API affordances in the form of the links in the JSON body.
+Uma ferramenta tem os seguintes atributos:
 
-It is recommend to follow the “url” link values, [Link](https://tools.ietf.org/html/rfc5988) or Location headers where applicable to retrieve resources. Instead of constructing your own URLs, to keep your client decoupled from implementation details.
++ _id - Identificador único da ferramenta, gerado automaticamente
++ title - Nome da ferramenta
++ link - Local aonde se encontra a ferramenta
++ description - Descrição do que a ferramenta faz
++ tags - Array contendo as tags
 
-## Retrieve the Entry Point [GET]
+### Listar todas as ferramentas [GET]: localhost:3000/ferramenta
 
 + Response 200 (application/json)
 
-        {
-            "ferramentas_url": "/ferramentas"
-        }
+[
+  {
+    "tags": [
+      "tag1",
+      "tag2",
+      "tag3"
+    ],
+    "_id": "5e6aa2c1bd407e133813ccea",
+    "title": "Chihaya",
+    "link": "chihayafuru.jp",
+    "description": "Karuta Weapon",
+    "__v": 0
+  },
+  {
+    "tags": [
+      "tag1",
+      "tag2",
+      "tag3"
+    ],
+    "_id": "5e6aa2cfbd407e133813cceb",
+    "title": "Chihaya2",
+    "link": "chihayafuru2.jp",
+    "description": "Karuta Weapon2",
+    "__v": 0
+  },
+  {
+    "tags": [
+      "tag1",
+      "tag2",
+      "tag3"
+    ],
+    "_id": "5e6aa2d5bd407e133813ccec",
+    "title": "Chihaya3",
+    "link": "chihayafuru3.jp",
+    "description": "Karuta Weapon3",
+    "__v": 0
+  },
+  {
+    "tags": [
+      "tag4",
+      "tag5",
+      "tag6"
+    ],
+    "_id": "5e6aa2e1bd407e133813cced",
+    "title": "Chihaya4",
+    "link": "chihayafuru4.jp",
+    "description": "Karuta Weapon4",
+    "__v": 0
+  },
+  {
+    "tags": [
+      "tag4",
+      "tag5",
+      "tag6"
+    ],
+    "_id": "5e6aa2e9bd407e133813ccee",
+    "title": "Chihaya5",
+    "link": "chihayafuru5.jp",
+    "description": "Karuta Weapon5",
+    "__v": 0
+  },
+  {
+    "tags": [
+      "tag4",
+      "tag5",
+      "tag6"
+    ],
+    "_id": "5e6aa2efbd407e133813ccef",
+    "title": "Chihaya6",
+    "link": "chihayafuru6.jp",
+    "description": "Karuta Weapon6",
+    "__v": 0
+  }
+]
 
-## Group Ferramentas
+### Listar ferramentas por tag [GET]: localhost:3000/ferramenta?tag=tag1
 
-Recursos relacionados às ferramentas
++ Response 200 (application/json)
 
-## Ferramentas [/ferramentas/{ferramenta_id}]
+[
+  {
+    "tags": [
+      "tag1",
+      "tag2",
+      "tag3"
+    ],
+    "_id": "5e6aa2c1bd407e133813ccea",
+    "title": "Chihaya",
+    "link": "chihayafuru.jp",
+    "description": "Karuta Weapon",
+    "__v": 0
+  },
+  {
+    "tags": [
+      "tag1",
+      "tag2",
+      "tag3"
+    ],
+    "_id": "5e6aa2cfbd407e133813cceb",
+    "title": "Chihaya2",
+    "link": "chihayafuru2.jp",
+    "description": "Karuta Weapon2",
+    "__v": 0
+  },
+  {
+    "tags": [
+      "tag1",
+      "tag2",
+      "tag3"
+    ],
+    "_id": "5e6aa2d5bd407e133813ccec",
+    "title": "Chihaya3",
+    "link": "chihayafuru3.jp",
+    "description": "Karuta Weapon3",
+    "__v": 0
+  }
+]
 
-Uma ferramenta tem os seguintes atributos:
+### Cadastrar nova ferramenta [POST]
+
+Essa ação permite você adicionar uma nova ferramenta.
+Uso: [POST] http://localhost:3000/ferramenta
+
++ Você pode colocar uma nova ferramenta no banco de dados com um request POST no formato JSON contendo os atributos da ferramenta e seus respectivos valores. O atributo _id vai ser gerado automaticamente e não precisa ser incluído no request. Os atributos 'description' e 'tags' são opcionais.
 
 + title - Nome da ferramenta
 + link - Local aonde se encontra a ferramenta
 + description - Descrição do que a ferramenta faz
 + tags - Array contendo as tags
 
-+ Parameters
-    + ferramenta_id: 1 (required, number) - ID of the ferramenta in form of an integer
-
-### View a ferramentas Detail [GET]
-
-+ Response 200 (application/json)
++ Request (application/json)
 
         {
-            "title": "Favourite programming language?",
-            "link": "/ferramentas/1",
-            "description": "",
-            "tags": []
+	        "title": "Chihaya6",
+	        "link": "chihayafuru6.jp",
+	        "description": "Karuta Weapon6",
+	        "tags": [
+		        "tag4",
+		        "tag5",
+		        "tag6"
+	        ]
         }
 
-## tag [/ferramentas/{ferramenta_id}/tags/{tag_id}]
-
-+ Parameters
-    + ferramenta_id: 1 (required, number) - ID of the ferramenta in form of an integer
-    + tag_id: 1 (required, number) - ID of the tag in form of an integer
-
-### Vote on a tag [POST]
-
-This action allows you to vote on a ferramenta's tag.
-
-+ Response 201
++ Response 201 (application/json)
 
     + Headers
 
-            Location: /ferramentas/1
+            X-Powered-By: Express
+            Content-Type: text/html; charset=utf-8
+            Content-Length: 191
+            ETag: W/"bf-xaCx1QaCG8TKqM+L8D5iBm5aRCA"
+            Date: Thu, 12 Mar 2020 21:00:31 GMT
+            Connection: keep-alive
 
-## ferramentas Collection [/ferramentas{?page}]
+    + Body
+
+            {
+                "title": "Chihaya6",
+                "link": "chihayafuru6.jp",
+                "description": "Karuta Weapon6",
+                "tags": [
+                    "tag4",
+                    "tag5",
+                    "tag6"
+                ]
+            }
+
+## Coleção de ferramentas [/ferramentas]
 
 + Parameters
     + page: 1 (optional, number) - The page of ferramentas to return
@@ -86,32 +209,7 @@ This action allows you to vote on a ferramenta's tag.
                 }
             ]
 
-### Create a New ferramenta [POST]
+### Criar nova ferramenta [POST]
 
-You may create your own ferramenta using this action. It takes a JSON object containing a ferramenta and a collection of answers in the form of tags.
 
-+ title (string) - Nome da ferramenta
-+ tags (array[string]) - Coleção de tags
-
-+ Request (application/json)
-
-        {
-            "title": "Favourite programming language?",
-            "tags": []
-        }
-
-+ Response 201 (application/json)
-
-    + Headers
-
-            Location: /ferramentas/2
-
-    + Body
-
-            {
-                "title": "Favourite programming language?",
-                "link": "/ferramentas/2",
-                "description": "",
-                "tags": []
-            }
 
