@@ -14,7 +14,9 @@ Uma ferramenta tem os seguintes atributos:
 + description - Descrição do que a ferramenta faz
 + tags - Array contendo as tags
 
-### Listar todas as ferramentas [GET]: localhost:3000/ferramenta
+### Listar todas as ferramentas 
+
+Uso: [GET] localhost:3000/ferramenta
 
 + Response 200 (application/json)
 
@@ -93,7 +95,9 @@ Uma ferramenta tem os seguintes atributos:
   }
 ]
 
-### Listar ferramentas por tag [GET]: localhost:3000/ferramenta?tag=tag1
+### Listar ferramentas por tag
+
+Uso: [GET] localhost:3000/ferramenta?tag=tag1
 
 + Response 200 (application/json)
 
@@ -146,7 +150,7 @@ Uso: [POST] http://localhost:3000/ferramenta
 + title - Nome da ferramenta
 + link - Local aonde se encontra a ferramenta
 + description - Descrição do que a ferramenta faz
-+ tags - Array contendo as tags
++ tags - Array contendo as tags(strings)
 
 + Request (application/json)
 
@@ -163,15 +167,6 @@ Uso: [POST] http://localhost:3000/ferramenta
 
 + Response 201 (application/json)
 
-    + Headers
-
-            X-Powered-By: Express
-            Content-Type: text/html; charset=utf-8
-            Content-Length: 191
-            ETag: W/"bf-xaCx1QaCG8TKqM+L8D5iBm5aRCA"
-            Date: Thu, 12 Mar 2020 21:00:31 GMT
-            Connection: keep-alive
-
     + Body
 
             {
@@ -184,32 +179,4 @@ Uso: [POST] http://localhost:3000/ferramenta
                     "tag6"
                 ]
             }
-
-## Coleção de ferramentas [/ferramentas]
-
-+ Parameters
-    + page: 1 (optional, number) - The page of ferramentas to return
-
-### List All ferramentas [GET]
-
-+ Response 200 (application/json)
-
-    + Headers
-
-            Link: </ferramentas?page=2>; rel="next"
-
-    + Body
-
-            [
-                {
-                    "title": "Favourite programming language?",
-                    "link": "/ferramentas/1",
-                    "description": "",
-                    "tags": []
-                }
-            ]
-
-### Criar nova ferramenta [POST]
-
-
 

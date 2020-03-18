@@ -4,27 +4,27 @@ const router = express.Router();
 const mongoose = require('mongoose');
 
 //criar uma nova ferramenta via POST, envie o request para localhost:3000/ferramenta
-//o conteúdo do request deve ir no corpo(body)
+//o conteúdo do request (a ferramenta) deve ir no corpo em formato JSON
 router.post('/ferramenta', (req, res) => {
     if (!req.body) {  //se o request não tem corpo
-        res.status(400).send('Sem corpo no request T_T erro 002');
+        res.status(400).send('Sem corpo no request T_T erro 002'); //400 = bad request
     }
 
-    const model = new FerramentaModel(req.body);  //cria model com o corpo do request
-
+    const model = new FerramentaModel(req.body);  //cria model com a ferramenta
     model._id = new mongoose.Types.ObjectId(); //gera um id (ObjectId("stringrandombemgrande"))
-    model._id.toString(); //converte pra "stringrandombemgrande"
+    model._id.toString(); //converte id pra string
 
-    model.save((err, model) => {
+    model.save((err, doc) => {  //colocar no DB
         if (err) res.status(500).send(`Não deu pra colocar ${model} no DB. Erro 003. ${err}`) //500 == internal server error
         //dá erro por exemplo se tentar colocar uma ferramenta com os campos que eu defini como 'únicos' repetidos (id e link)
-        else res.status(201).send(`Feito,\n\n${model}\n\nadicionada ao DB.`); //201 == success, created
+        else res.status(201).send(doc); //201 == success, created
     });
 });
 
-//localhost:PORT/ferramenta
-//ex: localhost:3000/ferramenta?name=chihaya&age=16
-//as query são key=value, o exemplo tem 1 query que contém os objetos 'name' e 'age'
+
+//GET localhost:PORT/ferramenta
+//ex: localhost:3000/ferramenta?tag=martelos
+//as query são key=value, o exemplo tem 1 query que contém o objeto 'tag' e 'age'
 
 //Retornar todas as ferramentas (get /ferramenta) ou
 //Retornar todas as ferramentas com uma dada tag (/ferramenta?tag=nomeDaTag)
