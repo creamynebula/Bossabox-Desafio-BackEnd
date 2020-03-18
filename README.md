@@ -8,6 +8,8 @@ ou
 
 A segunda opção vai usar o nodemon, que reinicia o servidor automaticamente se houver mudança em algum dos arquivos (js, mjs, json) usados pelo projeto.
 
+Dependências: body-parser, express, mongoose
+
 FEATURES:
 
 1: Rota para listar todas as ferramentas:
@@ -17,13 +19,15 @@ FEATURES:
 [GET] localhost:3000/ferramenta?tag=tag1
 
 3: Cadastrar uma nova ferramenta:
-O corpo da requisição deve conter as informações da ferramenta a ser cadastrada, sem o ID (gerado automaticamente pelo servidor). A resposta, em caso de sucesso, deve ser o mesmo objeto, com seu novo ID gerado.
-POST /tools Content-Type: application/json 
-Resposta:
-Status: 201 Created
-Content-Type: application/json
+[POST] http://localhost:3000/ferramenta
 
-4: O usuário deve poder remover uma ferramenta por ID
-DELETE /tools/:id
-Resposta:
-Status: 204 No Content 
+O corpo da requisição deve conter as informações da ferramenta a ser cadastrada, sem o ID (gerado automaticamente pelo servidor). A resposta, em caso de sucesso, é o mesmo objeto, com seu novo ID gerado.
+
+4: Remover ferramenta por ID:
+[DELETE] http://localhost:3000/ferramenta?id=5e6a96cff9aff70bbc59c9c8
+
+5: Remover ferramenta por Título:
+[DELETE] http://localhost:3000/ferramenta?title=Chihaya2
+
+6: Remover todas as ferramentas contendo uma certa tag:
+[DELETE] http://localhost:3000/ferramenta?tag=tag1

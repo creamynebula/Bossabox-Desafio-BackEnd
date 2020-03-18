@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 //criar uma nova ferramenta via POST, envie o request para localhost:3000/ferramenta
 //o conteúdo do request (a ferramenta) deve ir no corpo em formato JSON
+//a resposta é o objeto adicionado (com a id gerada)
 router.post('/ferramenta', (req, res) => {
     if (!req.body) {  //se o request não tem corpo
         res.status(400).send('Sem corpo no request T_T erro 002'); //400 = bad request
@@ -46,13 +47,13 @@ router.get('/ferramenta', (req, res) => {  //(req, res) = 'request' e 'response'
             else res.status(200).send(result); 
         })
     }
-    else {  //se a query tem uma id
+    else {
         res.status(400).send('Bad request, query inválida. Erro 004/3');
     }
 
 });
 
-//falta gerar os id sozinho
+
 router.delete('/ferramenta', (req, res) => {  //(req, res) = 'request' e 'response'
 
     //deletar todas as ferramentas com uma certa tag
@@ -61,8 +62,8 @@ router.delete('/ferramenta', (req, res) => {  //(req, res) = 'request' e 'respon
             tags: req.query.tag
         },
         (err, result) => {
-            if (err) res.status(500).send(`Algo de errado, erro 005/1. ${err}`);
-            else res.send(result)
+            if (err) res.status(500).send(`Algo de errado, erro 005/1. ${err}`)
+            else res.status(204).send(result)
         })
     }
     //deletar por título
@@ -71,8 +72,8 @@ router.delete('/ferramenta', (req, res) => {  //(req, res) = 'request' e 'respon
             title: req.query.title
         },
         (err, result) => {
-            if (err) res.status(500).send(`Algo de errado, erro 005/2. ${err}`);
-            else res.send(result)
+            if (err) res.status(500).send(`Algo de errado, erro 005/2. ${err}`)
+            else res.status(204).send(result)
         })
     }
     //deletar uma ferramenta por id
@@ -81,8 +82,8 @@ router.delete('/ferramenta', (req, res) => {  //(req, res) = 'request' e 'respon
             _id: req.query.id
         },
         (err, result) => {
-            if (err) res.status(500).send(`Algo de errado, erro 005/3. ${err}`);
-            else res.send(result)
+            if (err) res.status(500).send(`Algo de errado, erro 005/3. ${err}`)
+            else res.status(204).send(result)  //204 No Content success
         })
     }
 

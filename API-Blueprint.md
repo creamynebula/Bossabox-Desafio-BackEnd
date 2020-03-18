@@ -4,19 +4,21 @@ FORMAT: 1A
 
 API para acesso à VUTTR (Very Useful Tools to Remember). A aplicação é um repositório para gerenciar ferramentas com seus respectivos nomes, links, descrições e tags.
 
-## Ferramentas
+# Group Ferramentas
+
+## Ferramenta [/ferramenta]
 
 Uma ferramenta tem os seguintes atributos:
 
-+ _id - Identificador único da ferramenta, gerado automaticamente
-+ title - Nome da ferramenta
-+ link - Local aonde se encontra a ferramenta
-+ description - Descrição do que a ferramenta faz
-+ tags - Array contendo as tags
++ _id (String) - Identificador único da ferramenta, gerado automaticamente pelo servidor.
++ title (String) - Nome da ferramenta
++ link (String) - Local aonde se encontra a ferramenta (url)
++ description (String) - Descrição do que a ferramenta faz
++ tags (Array[String]) - Array contendo as tags
 
-### Listar todas as ferramentas 
+### Listar todas as ferramentas [GET]
 
-Uso: [GET] localhost:3000/ferramenta
+Uso: localhost:3000/ferramenta
 
 + Response 200 (application/json)
 
@@ -95,9 +97,10 @@ Uso: [GET] localhost:3000/ferramenta
   }
 ]
 
-### Listar ferramentas por tag
+### Listar ferramentas por tag [GET]
 
-Uso: [GET] localhost:3000/ferramenta?tag=tag1
+Uso: localhost:3000/ferramenta?tag=tag1
+
 
 + Response 200 (application/json)
 
@@ -145,7 +148,7 @@ Uso: [GET] localhost:3000/ferramenta?tag=tag1
 Essa ação permite você adicionar uma nova ferramenta.
 Uso: [POST] http://localhost:3000/ferramenta
 
-+ Você pode colocar uma nova ferramenta no banco de dados com um request POST no formato JSON contendo os atributos da ferramenta e seus respectivos valores. O atributo _id vai ser gerado automaticamente e não precisa ser incluído no request. Os atributos 'description' e 'tags' são opcionais.
+Você pode colocar uma nova ferramenta no banco de dados com um request POST no formato JSON contendo os atributos da ferramenta e seus respectivos valores. O atributo _id vai ser gerado automaticamente e não precisa ser incluído no request. Os atributos 'description' e 'tags' são opcionais.
 
 + title - Nome da ferramenta
 + link - Local aonde se encontra a ferramenta
@@ -180,3 +183,32 @@ Uso: [POST] http://localhost:3000/ferramenta
                 ]
             }
 
+### Remover uma ferramenta [DELETE]
+
+Essa ação permite você remover uma ferramenta por ID, Título ou remover todas contendo uma tag.
+Uso: [DELETE] http://localhost:3000/ferramenta?id=5e6a96cff9aff70bbc59c9c8
+ou [DELETE] http://localhost:3000/ferramenta?tag=tag1
+ou [DELETE] http://localhost:3000/ferramenta?title=Chihaya2
+
++ Response 204 (application/json)
+
+  + Body
+
+    {
+      "n": 1,
+      "opTime": {
+        "ts": "6803423944293482498",
+        "t": 5
+      },
+      "electionId": "7fffffff0000000000000005",
+      "ok": 1,
+      "$clusterTime": {
+        "clusterTime": "6803423944293482498",
+        "signature": {
+          "hash": "82hPjLB7xKB0TMr/WBIo3rGP7bU=",
+          "keyId": "6795223266882486274"
+        }
+      },
+      "operationTime": "6803423944293482498",
+      "deletedCount": 1
+    }

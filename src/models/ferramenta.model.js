@@ -7,9 +7,10 @@ mongoose.connect(connectstring, {
     useUnifiedTopology: true, //UnifiedTopology e CreateIndex é pq haviam warnings no console sugerindo usar
     useCreateIndex: true
 }).
-    catch(error => console.log('não conectou ao DB'));
+    catch(err => console.log(`não conectou ao DB. Erro:\n${err}`));
 
 let ferramentaSchema = new mongoose.Schema({
+
     _id: String,
     title: {
         type: String,
