@@ -27,6 +27,7 @@ app.use((err, req, res) => { //essa função recebe um error object 'err' també
     res.sendFile(path.join(__dirname, '../public/500.html')) //__dirname = cwd = root/src/
 })
 
-const PORT = process.env.PORT || 3000 //process environment PORT ou 3000
+//const PORT = process.env.PORT || 3000 //process environment PORT ou 3000
+const PORT = 3000;
 
 app.listen(PORT, () => console.info(`Servidor rodando na porta ${PORT}`))
