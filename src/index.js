@@ -1,33 +1,37 @@
-const express = require('express')  //importando o módulo express
-const app = express()  //executando a função express() do módulo 'express' pra iniciar a app
+require('dotenv').config(); //isso precisa vir 1o para a URI do DB estar disponível globalmente
+const express = require('express');
+const cool = require('cool-ascii-faces');
+const ferramentaRoute = require('./routes/ferramenta');
 
-let path = require('path')
-let bodyParser = require('body-parser')
-let ferramentaRoute = require('./routes/ferramenta')
+const app = express();
+
+//para poder usar req.body para lidar com os requests
+app.use(express.json());
 
 
-//pega qualquer incoming json string e cria um atributo 'body', então agora podemos usar req.body
-app.use(bodyParser.json())
+const requestLogger = (req, res, next) => {
+    //middleware que sempre é executado
+    console.log("Method:", req.method);
+    console.log("Path:  ", req.path);
+    console.log("Body:  ", req.body);
+    console.log("---");
+    next();
+};
+app.use(requestLogger);
 
-app.use(ferramentaRoute)  //dizendo ao express pra usar ferramentaRoute, aka ferramenta.js
-
-//express.static é uma built-in (no express) middleware function pra servir arquivos estáticos
-app.use('/', express.static('public'))  //os static files vem de root/public
+//dizendo ao express pra usar as rotas definidas em ferramenta.js
+app.use(ferramentaRoute);
 
 //lidar com erro 404
-app.use((req, res) => {
-    res.status(404).send(`Aonde você está tentando ir? Confira o readme ou o API-Blueprint para se informar sobre as rotas disponíveis.`)
-})
+const unknownEndpoint = (req, res) => {
+    //esse middleware tem de ser declarado depois das rotas
+    //então ele será chamado apenas se nenhuma rota declarada souber lidar com o request
+    res.status(404).send(`${cool()} \nUnknown Endpoint! Confira as rotas disponíveis na documentação. Para listar todas as ferramentas é /ferramenta`);
+};
 
-//lidar com erro 500 (internal server error)
-//qdo dá erro 500 vamos pra página especial 500.html
-app.use((err, req, res) => { //essa função recebe um error object 'err' também
-    console.error(err.stack) //isso imprime no console o caminho do erro, incluindo a msg que foi Thrown na ocasiao do erro
-    console.error(`o request foi ${req}`)
-    res.sendFile(path.join(__dirname, '../public/500.html')) //__dirname = cwd = root/src/
-})
+app.use(unknownEndpoint);
 
-//const PORT = process.env.PORT || 3000 //process environment PORT ou 3000
-const PORT = 3000;
 
-app.listen(PORT, () => console.info(`Servidor rodando na porta ${PORT}`))
+//process environment PORT ou 3000
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.info(`Servidor rodando na porta ${PORT}`));
