@@ -2,12 +2,12 @@ POST http://localhost:3000/ferramenta
 Content-Type: application/json
 
 {
-	"title": "Chihaya4",
+	"title": "Chihaya5",
 	"link": "chihayafuru.jp",
 	"description": "Karuta Weapon",
 	"tags": [
-		"tag1",
-		"tag2",
-		"tag3"
+		"tag3",
+		"tag4",
+		"tag5"
 	]
 }

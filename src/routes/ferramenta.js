@@ -57,6 +57,7 @@ router.get('/ferramenta', (req, res) => {  //(req, res) = 'request' e 'response'
 router.delete('/ferramenta', (req, res) => {  //(req, res) = 'request' e 'response'
     //deletar todas as ferramentas com uma certa tag
     if (req.query.tag) { //se a query tem tag
+
         FerramentaModel.deleteMany({ tags: req.query.tag })
             .then(x => res.status(204).send(x)) //204 == No Content
             .catch(err => res.status(500).send(`Erro. ${err}`)) // 500 == internal server error
