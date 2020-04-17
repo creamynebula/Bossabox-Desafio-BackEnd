@@ -15,7 +15,7 @@ const requestLogger = (req, res, next) => {
     console.log("Path:  ", req.path);
     console.log("Body:  ", req.body);
     console.log("---");
-    next();
+    next(); //passa o controle para o próximo middleware, todo middleware custom que não retorne uma resposta deve terminar com next();
 };
 app.use(requestLogger);
 

@@ -1,1 +1,1 @@
-DELETE http://localhost:3000/ferramenta/1
+DELETE http://localhost:3000/ferramenta?id=5e98bbbc05228018c4f94005

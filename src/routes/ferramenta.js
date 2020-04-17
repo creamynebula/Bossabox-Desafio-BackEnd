@@ -59,18 +59,18 @@ router.delete('/ferramenta', (req, res) => {  //(req, res) = 'request' e 'respon
     if (req.query.tag) { //se a query tem tag
         FerramentaModel.deleteMany({ tags: req.query.tag })
             .then(x => res.status(204).send(x)) //204 == No Content
-            .catch(err => res.status(500).send(`Erro. ${err}`))
+            .catch(err => res.status(500).send(`Erro. ${err}`)) // 500 == internal server error
     }
     //deletar por título
     else if (req.query.title) { //se a query tem title
         FerramentaModel.deleteOne({ title: req.query.title })
-            .then(x => res.status(204).send(x)) //204 == No Content
+            .then(x => res.status(204).send(x))
             .catch(err => res.status(500).send(`Erro. ${err}`))
     }
     //deletar uma ferramenta por id
     else if (req.query.id) { //se a query tem id
         FerramentaModel.deleteOne({ _id: req.query.id })
-            .then(x => res.status(204).send(x)) //204 == No Content
+            .then(x => res.status(204).send(x))
             .catch(err => res.status(500).send(`Erro. ${err}`))
     }
     else {
