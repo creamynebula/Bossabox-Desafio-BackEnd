@@ -1,8 +1,8 @@
-POST http://localhost:3000/ferramenta
+POST https://desafio-bossabox-mateus.herokuapp.com/ferramenta
 Content-Type: application/json
 
 {
-	"title": "Chihaya5",
+	"title": "Chihaya6",
 	"link": "chihayafuru.jp",
 	"description": "Karuta Weapon",
 	"tags": [

@@ -22,10 +22,10 @@ router.post('/ferramenta', (req, res) => {
 
     else {
         const ferramenta = new FerramentaModel({
-            title: body.title,
-            link: body.link,
-            description: body.description,
-            tags: body.tags
+            title: sanitize(body.title),
+            link: sanitize(body.link),
+            description: sanitize(body.description),
+            tags: sanitize(body.tags)
         });
         ferramenta._id = new mongoose.Types.ObjectId(); //gera um id (ObjectId("stringrandombemgrande"))
         ferramenta._id.toString(); //converte id pra string
