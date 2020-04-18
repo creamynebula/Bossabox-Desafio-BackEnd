@@ -1,7 +1,7 @@
 const FerramentaModel = require('../models/ferramenta.model');
 const express = require('express');
 const mongoose = require('mongoose');
-const sanitize = require('mongo-sanitize'); //mongoDB queries começando com $ passam a throw a error
+const sanitize = require('mongo-sanitize'); //atributos nas queries começando com $ passam a ser removidos
 
 const router = express.Router();
 
@@ -39,7 +39,8 @@ router.post('/ferramenta', (req, res) => {
 //retornar todas as ferramentas com uma dada tag (GET /ferramenta?tag=nomeDaTag)
 router.get('/ferramenta', (req, res) => {  //(req, res) = 'request' e 'response'
     if (req.query.tag) {  //se a query tem uma tag
-        FerramentaModel.find({ tags: req.query.tag })
+        const clean = sanitize(req.query.tag);
+        FerramentaModel.find({ tags: clean })
             .then(x => res.status(200).send(x))
             .catch(err => res.status(500).send(err));
 
@@ -57,20 +58,22 @@ router.get('/ferramenta', (req, res) => {  //(req, res) = 'request' e 'response'
 router.delete('/ferramenta', (req, res) => {  //(req, res) = 'request' e 'response'
     //deletar todas as ferramentas com uma certa tag
     if (req.query.tag) { //se a query tem tag
-
-        FerramentaModel.deleteMany({ tags: req.query.tag })
+        const clean = sanitize(req.query.tag);
+        FerramentaModel.deleteMany({ tags: clean })
             .then(x => res.status(204).send(x)) //204 == No Content
             .catch(err => res.status(500).send(`Erro. ${err}`)) // 500 == internal server error
     }
     //deletar por título
     else if (req.query.title) { //se a query tem title
-        FerramentaModel.deleteOne({ title: req.query.title })
+        const clean = sanitize(req.query.title);
+        FerramentaModel.deleteOne({ title: clean })
             .then(x => res.status(204).send(x))
             .catch(err => res.status(500).send(`Erro. ${err}`))
     }
     //deletar uma ferramenta por id
     else if (req.query.id) { //se a query tem id
-        FerramentaModel.deleteOne({ _id: req.query.id })
+        const clean = sanitize(req.query.id);
+        FerramentaModel.deleteOne({ _id: clean })
             .then(x => res.status(204).send(x))
             .catch(err => res.status(500).send(`Erro. ${err}`))
     }
